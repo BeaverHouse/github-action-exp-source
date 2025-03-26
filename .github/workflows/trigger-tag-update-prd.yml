@@ -1,0 +1,37 @@
+name: Trigger tag update for production environment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-image-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get Image Tags
+        run: echo $(sh .github/scripts/get-image-tags.sh 2>/dev/null) >> $GITHUB_OUTPUT
+
+  trigger-tag-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Workflow
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: 'BeaverHouse',
+              repo: 'github-action-exp-target',
+              workflow_id: 'tag-update.yml',
+              ref: 'main',
+              inputs: {
+                image_tags: ${{ steps.get-image-tags.outputs.image_tags_json }},
+                values_files: "charts/tag-update/values-prd-foo.yaml,charts/tag-update/values-prd-bar.yaml",
+                target_branch: "main",
+                source_commit: "{{ github.sha }}",
+                source_repository: "{{ github.repository }}",
+                auto_merge: "false",
+              },
+            })
