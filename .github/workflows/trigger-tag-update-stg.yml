@@ -32,6 +32,6 @@ jobs:
                 target_branch: "main",
                 source_commit: "{{ github.sha }}",
                 source_repository: "{{ github.repository }}",
-                auto_merge: "true",
+                auto_merge: "true"
               },
             })
