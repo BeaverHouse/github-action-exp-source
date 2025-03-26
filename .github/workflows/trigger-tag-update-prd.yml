@@ -13,7 +13,7 @@ jobs:
       - name: Get Image Tags
         id: get-image-tags
         run: |
-          TAGS=$(sh .github/scripts/get-image-tags.sh 2>/dev/null)
+          TAGS=$(bash .github/scripts/get-image-tags.sh 2>/dev/null)
           echo "image_tags_json=$TAGS" >> $GITHUB_OUTPUT
     outputs:
       image_tags_json: ${{ steps.get-image-tags.outputs.image_tags_json }}
