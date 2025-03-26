@@ -17,6 +17,7 @@ jobs:
       image_tags_json: ${{ steps.get-image-tags.outputs.value }}
 
   trigger-tag-update:
+    needs: get-image-tags
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Workflow
