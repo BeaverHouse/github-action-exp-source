@@ -33,5 +33,5 @@ jobs:
                 source_commit: "{{ github.sha }}",
                 source_repository: "{{ github.repository }}",
                 auto_merge: "true"
-              },
+              }
             })
