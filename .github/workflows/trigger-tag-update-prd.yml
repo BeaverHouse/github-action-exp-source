@@ -11,6 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get Image Tags
+        id: get-image-tags
         run: echo $(sh .github/scripts/get-image-tags.sh 2>/dev/null) >> $GITHUB_OUTPUT
     outputs:
       image_tags_json: ${{ steps.get-image-tags.outputs.value }}
