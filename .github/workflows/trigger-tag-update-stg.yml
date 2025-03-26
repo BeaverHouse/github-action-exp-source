@@ -12,9 +12,11 @@ jobs:
 
       - name: Get Image Tags
         id: get-image-tags
-        run: echo "value=$(sh .github/scripts/get-image-tags.sh 2>/dev/null)" >> $GITHUB_OUTPUT
+        run: |
+          TAGS=$(sh .github/scripts/get-image-tags.sh 2>/dev/null)
+          echo "image_tags_json=$TAGS" >> $GITHUB_OUTPUT
     outputs:
-      image_tags_json: ${{ steps.get-image-tags.outputs.value }}
+      image_tags_json: ${{ steps.get-image-tags.outputs.image_tags_json }}
 
   trigger-tag-update:
     needs: get-image-tags
