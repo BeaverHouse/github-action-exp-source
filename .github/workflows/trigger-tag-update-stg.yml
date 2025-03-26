@@ -33,7 +33,7 @@ jobs:
               workflow_id: 'helm-tag-updates.yaml',
               ref: 'main',
               inputs: {
-                image_tags: ${{ needs.get-image-tags.outputs.image_tags_json }},
+                images: ${{ needs.get-image-tags.outputs.image_tags_json }},
                 values_files: "charts/tag-update/values-stg.yaml",
                 target_branch: "main",
                 source_commit: "${{ github.sha }}",
