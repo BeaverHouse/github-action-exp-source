@@ -30,7 +30,7 @@ jobs:
             github.rest.actions.createWorkflowDispatch({
               owner: 'BeaverHouse',
               repo: 'github-action-exp-target',
-              workflow_id: 'tag-update.yml',
+              workflow_id: 'helm-tag-updates.yml',
               ref: 'main',
               inputs: {
                 image_tags: ${{ needs.get-image-tags.outputs.image_tags_json }},
