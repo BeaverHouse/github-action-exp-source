@@ -20,6 +20,9 @@ done
 image_tags_json=${image_tags_json%,}
 image_tags_json="$image_tags_json}"
 
+# Escape double quotes
+image_tags_json=$(echo "$image_tags_json" | sed 's/"/\\"/g')
+
 # Send to stdout
 # Get value by following command:
 # $(sh .github/scripts/get-image-tags.sh 2>/dev/null)
