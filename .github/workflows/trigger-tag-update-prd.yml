@@ -13,7 +13,7 @@ jobs:
       - name: Get Image Tags
         id: get-image-tags
         run: |
-          TAGS=$(bash .github/scripts/get-image-tags.sh 2>/dev/null)
+          TAGS=$(bash ${{ github.workspace }}/scripts/get-image-tags.sh 2>/dev/null)
           echo "image_tags_json=$TAGS" >> $GITHUB_OUTPUT
     outputs:
       image_tags_json: ${{ steps.get-image-tags.outputs.image_tags_json }}
@@ -29,7 +29,7 @@ jobs:
       - name: Trigger Workflow
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GH_PAT }}
+          github-token: ${{ secrets.GH_PAT_ORGANIZATION }}
           script: |
             github.rest.actions.createWorkflowDispatch({
               owner: 'BeaverHouse',
